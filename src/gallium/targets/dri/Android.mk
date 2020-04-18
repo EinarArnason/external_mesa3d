@@ -32,6 +32,9 @@ LOCAL_SRC_FILES := target.c
 
 LOCAL_CFLAGS :=
 
+LOCAL_C_INCLUDES += \
+	$(MESA_TOP)/prebuilt-intermediates
+
 # We need --undefined-version as some functions in dri.sym may be missing
 # depending on which drivers are enabled or not. Otherwise, we get the error:
 # "version script assignment of  to symbol FOO failed: symbol not defined"
@@ -57,19 +60,8 @@ endif
 
 LOCAL_STATIC_LIBRARIES += \
 	libetnaviv_drm \
-	libfreedreno_common \
-	libfreedreno_drm \
-	libfreedreno_ir2 \
-	libfreedreno_ir3 \
-	libfreedreno_perfcntrs \
 	libmesa_gallium \
-	libpanfrost_lib \
-	libpanfrost_bifrost \
-	libpanfrost_bifrost_disasm \
-	libpanfrost_midgard \
-	libpanfrost_midgard_disasm \
-	libpanfrost_shared \
-	libpanfrost_util \
+	libpanfrost_shared
 
 ifeq ($(USE_LIBBACKTRACE),true)
 	LOCAL_SHARED_LIBRARIES += libbacktrace

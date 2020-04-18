@@ -38,6 +38,9 @@ LOCAL_CFLAGS += \
 	-Wno-missing-field-initializers \
 	-Wno-initializer-overrides \
 	-Wno-mismatched-tags \
+	-Wno-missing-braces \
+	-Wno-enum-conversion \
+	-Wno-implicit-fallthrough \
 	-DPACKAGE_VERSION=\"$(MESA_VERSION)\" \
 	-DPACKAGE_BUGREPORT=\"https://gitlab.freedesktop.org/mesa/mesa/-/issues\"
 
