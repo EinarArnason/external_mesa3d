@@ -20,6 +20,7 @@ BROADCOM_FILES = \
 	common/v3d_cpu_tiling.h \
 	common/v3d_debug.c \
 	common/v3d_debug.h \
+	common/v3d_device_info.c \
 	common/v3d_device_info.h \
 	common/v3d_limits.h \
 	common/v3d_macros.h \
@@ -27,6 +28,7 @@ BROADCOM_FILES = \
 	compiler/vir.c \
 	compiler/vir_dump.c \
 	compiler/vir_live_variables.c \
+	compiler/vir_opt_constant_alu.c \
 	compiler/vir_opt_copy_propagate.c \
 	compiler/vir_opt_dead_code.c \
 	compiler/vir_opt_redundant_flags.c \
@@ -42,6 +44,8 @@ BROADCOM_FILES = \
 	compiler/v3d_nir_lower_image_load_store.c \
 	compiler/v3d_nir_lower_io.c \
 	compiler/v3d_nir_lower_line_smooth.c \
+	compiler/v3d_nir_lower_logic_ops.c \
+	compiler/v3d_nir_lower_robust_buffer_access.c \
 	compiler/v3d_nir_lower_scratch.c \
 	compiler/v3d_nir_lower_txf_ms.c \
 	qpu/qpu_disasm.c \
