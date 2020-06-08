@@ -37,6 +37,8 @@ LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 LOCAL_C_INCLUDES := $(MESA_TOP)/include
 
+LOCAL_HEADER_LIBRARIES += liblog_headers
+
 # We need libmesa_nir to get NIR's generated include directories.
 LOCAL_STATIC_LIBRARIES := \
 	libmesa_nir

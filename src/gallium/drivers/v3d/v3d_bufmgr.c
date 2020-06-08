@@ -21,6 +21,9 @@
  * IN THE SOFTWARE.
  */
 
+#define LOG_TAG "v3d_bufmgr"
+#include <log/log.h>
+
 #include <errno.h>
 #include <err.h>
 #include <sys/mman.h>
@@ -84,6 +87,9 @@ v3d_bo_remove_from_cache(struct v3d_bo_cache *cache, struct v3d_bo *bo)
         list_del(&bo->size_list);
 }
 
+static int v3d_wait_bo_ioctl(int fd, uint32_t handle, uint64_t timeout_ns);
+static void v3d_bo_free(struct v3d_bo *bo);
+
 static struct v3d_bo *
 v3d_bo_from_cache(struct v3d_screen *screen, uint32_t size, const char *name)
 {
@@ -103,9 +109,21 @@ v3d_bo_from_cache(struct v3d_screen *screen, uint32_t size, const char *name)
                  * allocate something new instead, since we assume that the
                  * user will proceed to CPU map it and fill it with stuff.
                  */
-                if (!v3d_bo_wait(bo, 0, NULL)) {
-                        mtx_unlock(&cache->lock);
-                        return NULL;
+                int ret = v3d_wait_bo_ioctl(bo->screen->fd, bo->handle, 0);
+                if (ret) {
+                        if (ret == -ETIME) {
+                                mtx_unlock(&cache->lock);
+                                return NULL;
+                        } else if (ret == -EINVAL) {
+                                ALOGE("v3d_bo_from_cache(): wait failed: EINVAL");
+                                v3d_bo_remove_from_cache(cache, bo);
+                                v3d_bo_free(bo);
+                                mtx_unlock(&cache->lock);
+                                return NULL;
+                        } else {
+                                ALOGE("v3d_bo_from_cache(): wait failed: %d", ret);
+                                abort();
+                        }
                 }
 
                 pipe_reference_init(&bo->reference, 1);
@@ -456,6 +474,7 @@ static int v3d_wait_bo_ioctl(int fd, uint32_t handle, uint64_t timeout_ns)
 {
         struct drm_v3d_wait_bo wait = {
                 .handle = handle,
+                .pad = 0,
                 .timeout_ns = timeout_ns,
         };
         int ret = v3d_ioctl(fd, DRM_IOCTL_V3D_WAIT_BO, &wait);
