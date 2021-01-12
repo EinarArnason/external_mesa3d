@@ -244,11 +244,12 @@ v3dv_layer_offset(const struct v3dv_image *image, uint32_t level, uint32_t layer
 }
 
 static VkResult
-create_image(struct v3dv_device *device,
+create_image(VkDevice _device,
              const VkImageCreateInfo *pCreateInfo,
              const VkAllocationCallbacks *pAllocator,
              VkImage *pImage)
 {
+   V3DV_FROM_HANDLE(v3dv_device, device, _device);
    struct v3dv_image *image = NULL;
 
    image = vk_image_create(&device->vk, pCreateInfo, pAllocator, sizeof(*image));
@@ -292,10 +293,33 @@ create_image(struct v3dv_device *device,
       }
       assert(modifier == DRM_FORMAT_MOD_LINEAR ||
              modifier == DRM_FORMAT_MOD_BROADCOM_UIF);
-   } else if (pCreateInfo->imageType == VK_IMAGE_TYPE_1D ||
-              image->vk.wsi_legacy_scanout) {
-      tiling = VK_IMAGE_TILING_LINEAR;
+   } else {
+      const struct wsi_image_create_info *wsi_info =
+         vk_find_struct_const(pCreateInfo->pNext, WSI_IMAGE_CREATE_INFO_MESA);
+      if (wsi_info && wsi_info->scanout)
+         modifier = DRM_FORMAT_MOD_LINEAR;
    }
+
+#ifdef ANDROID
+   const VkNativeBufferANDROID *gralloc_info =
+      vk_find_struct_const(pCreateInfo->pNext, NATIVE_BUFFER_ANDROID);
+   int dma_buf;
+   if (gralloc_info) {
+      VkResult result = v3dv_gralloc_info(device, gralloc_info, &dma_buf, &modifier);
+      if (result != VK_SUCCESS)
+         return result;
+   }
+#endif
+
+   /* 1D and 1D_ARRAY textures are always raster-order */
+   if (pCreateInfo->imageType == VK_IMAGE_TYPE_1D)
+      tiling = VK_IMAGE_TILING_LINEAR;
+   else if (modifier == DRM_FORMAT_MOD_INVALID)
+      tiling = pCreateInfo->tiling;
+   else if (modifier == DRM_FORMAT_MOD_BROADCOM_UIF)
+      tiling = VK_IMAGE_TILING_OPTIMAL;
+   else
+      tiling = VK_IMAGE_TILING_LINEAR;
 
    const struct v3dv_format *format =
       v3dv_X(device, get_format)(pCreateInfo->format);
@@ -323,11 +347,16 @@ create_image(struct v3dv_device *device,
 
    *pImage = v3dv_image_to_handle(image);
 
+#ifdef ANDROID
+   if (gralloc_info)
+      return v3dv_import_memory_from_gralloc_handle(_device, dma_buf, pAllocator, *pImage);
+#endif
+
    return VK_SUCCESS;
 }
 
 static VkResult
-create_image_from_swapchain(struct v3dv_device *device,
+create_image_from_swapchain(VkDevice _device,
                             const VkImageCreateInfo *pCreateInfo,
                             const VkImageSwapchainCreateInfoKHR *swapchain_info,
                             const VkAllocationCallbacks *pAllocator,
@@ -370,7 +399,7 @@ create_image_from_swapchain(struct v3dv_device *device,
    assert((swapchain_image->vk.usage & local_create_info.usage) ==
           local_create_info.usage);
 
-   return create_image(device, &local_create_info, pAllocator, pImage);
+   return create_image(_device, &local_create_info, pAllocator, pImage);
 }
 
 VKAPI_ATTR VkResult VKAPI_CALL
@@ -379,15 +408,13 @@ v3dv_CreateImage(VkDevice _device,
                  const VkAllocationCallbacks *pAllocator,
                  VkImage *pImage)
 {
-   V3DV_FROM_HANDLE(v3dv_device, device, _device);
-
    const VkImageSwapchainCreateInfoKHR *swapchain_info =
       vk_find_struct_const(pCreateInfo->pNext, IMAGE_SWAPCHAIN_CREATE_INFO_KHR);
    if (swapchain_info && swapchain_info->swapchain != VK_NULL_HANDLE)
-      return create_image_from_swapchain(device, pCreateInfo, swapchain_info,
+      return create_image_from_swapchain(_device, pCreateInfo, swapchain_info,
                                          pAllocator, pImage);
 
-   return create_image(device, pCreateInfo, pAllocator, pImage);
+   return create_image(_device, pCreateInfo, pAllocator, pImage);
 }
 
 VKAPI_ATTR void VKAPI_CALL
@@ -435,6 +462,11 @@ v3dv_DestroyImage(VkDevice _device,
 
    if (image == NULL)
       return;
+
+#ifdef ANDROID
+   if (image->owned_memory != VK_NULL_HANDLE)
+      v3dv_FreeMemory(_device, image->owned_memory, pAllocator);
+#endif
 
    vk_image_destroy(&device->vk, pAllocator, &image->vk);
 }
