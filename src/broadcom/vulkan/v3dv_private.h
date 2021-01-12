@@ -535,6 +535,11 @@ struct v3dv_image {
    struct v3dv_device_memory *mem;
    VkDeviceSize mem_offset;
    uint32_t alignment;
+
+#ifdef ANDROID
+   /* For VK_ANDROID_native_buffer, the WSI image owns the memory, */
+   VkDeviceMemory owned_memory;
+#endif
 };
 
 VkImageViewType v3dv_image_type_to_view_type(VkImageType type);
@@ -2149,5 +2154,17 @@ u64_compare(const void *key1, const void *key2)
 #  include "v3dvx_private.h"
 #  undef v3dX
 #endif
+
+VkResult
+v3dv_gralloc_info(struct v3dv_device *device,
+                  const VkNativeBufferANDROID *gralloc_info,
+                  int *dma_buf,
+                  uint64_t *modifier);
+
+VkResult
+v3dv_import_memory_from_gralloc_handle(VkDevice device_h,
+                                       int dma_buf,
+                                       const VkAllocationCallbacks *alloc,
+                                       VkImage image_h);
 
 #endif /* V3DV_PRIVATE_H */
