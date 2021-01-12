@@ -64,3 +64,28 @@ BROADCOM_DECODER_FILES = \
 	cle/v3d_decoder.h \
 	$()
 
+BROADCOM_VULKAN_FILES = \
+	vulkan/v3dv_android.c \
+	vulkan/v3dv_bo.c \
+	vulkan/v3dv_cl.c \
+	vulkan/v3dv_cmd_buffer.c \
+	vulkan/v3dv_debug.c \
+	vulkan/v3dv_debug.h \
+	vulkan/v3dv_descriptor_set.c \
+	vulkan/v3dv_device.c \
+	vulkan/v3dv_formats.c \
+	vulkan/v3dv_image.c \
+	vulkan/v3dv_limits.h \
+	vulkan/v3dv_meta_clear.c \
+	vulkan/v3dv_meta_copy.c \
+	vulkan/v3dv_pass.c \
+	vulkan/v3dv_pipeline.c \
+	vulkan/v3dv_pipeline_cache.c \
+	vulkan/v3dv_private.h \
+	vulkan/v3dv_query.c \
+	vulkan/v3dv_queue.c \
+	vulkan/v3dv_uniforms.c \
+	vulkan/v3dv_util.c \
+	vulkan/v3dv_wsi.c \
+	vulkan/v3d_tiling.c \
+	$()

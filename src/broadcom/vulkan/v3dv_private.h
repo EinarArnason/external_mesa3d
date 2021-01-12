@@ -2136,4 +2136,16 @@ u64_compare(const void *key1, const void *key2)
    return memcmp(key1, key2, sizeof(uint64_t)) == 0;
 }
 
+VkResult
+v3dv_gralloc_info(struct v3dv_device *device,
+                const VkNativeBufferANDROID *gralloc_info,
+                int *dma_buf,
+                uint64_t *modifier);
+
+VkResult
+v3dv_import_memory_from_gralloc_handle(VkDevice device_h,
+                                     int dma_buf,
+                                     const VkAllocationCallbacks *alloc,
+                                     VkImage image_h);
+
 #endif /* V3DV_PRIVATE_H */

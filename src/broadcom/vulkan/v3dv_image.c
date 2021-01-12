@@ -296,6 +296,17 @@ v3dv_CreateImage(VkDevice _device,
          modifier = DRM_FORMAT_MOD_LINEAR;
    }
 
+#ifdef ANDROID
+   const VkNativeBufferANDROID *gralloc_info =
+      vk_find_struct_const(pCreateInfo->pNext, NATIVE_BUFFER_ANDROID);
+   int dma_buf;
+   if (gralloc_info) {
+      VkResult result = v3dv_gralloc_info(device, gralloc_info, &dma_buf, &modifier);
+      if (result != VK_SUCCESS)
+         return result;
+   }
+#endif
+
    /* 1D and 1D_ARRAY textures are always raster-order */
    VkImageTiling tiling;
    if (pCreateInfo->imageType == VK_IMAGE_TYPE_1D)
@@ -339,6 +350,10 @@ v3dv_CreateImage(VkDevice _device,
 
    *pImage = v3dv_image_to_handle(image);
 
+#ifdef ANDROID
+   if (gralloc_info)
+      return v3dv_import_memory_from_gralloc_handle(_device, dma_buf, pAllocator, *pImage);
+#endif
    return VK_SUCCESS;
 }
 
