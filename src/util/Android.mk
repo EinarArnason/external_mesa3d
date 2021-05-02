@@ -39,6 +39,7 @@ LOCAL_MODULE := libmesa_util
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_C_INCLUDES := \
 	external/zlib \
@@ -69,12 +70,9 @@ LOCAL_EXPORT_C_INCLUDE_DIRS := $(intermediates)
 UTIL_GENERATED_SOURCES := $(addprefix $(intermediates)/,$(subst format/u_format_pack.h,util/format/u_format_pack.h,$(MESA_UTIL_GENERATED_FILES)))
 LOCAL_GENERATED_SOURCES := $(UTIL_GENERATED_SOURCES)
 
-driconf_static_gen := $(LOCAL_PATH)/driconf_static.py
-driconf_static_deps := $(LOCAL_PATH)/00-mesa-defaults.conf
-
-$(intermediates)/driconf_static.h: $(driconf_static_deps)
+$(intermediates)/driconf_static.h: $(prebuilt_intermediates)/util/driconf_static.h
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(driconf_static_gen) $^ $@
+	@cp -f $< $@
 
 format_srgb_gen := $(LOCAL_PATH)/format_srgb.py
 
