@@ -310,7 +310,7 @@
         "description": "mesa: move GetProgramInterfaceiv as a shader_query function",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -364,7 +364,7 @@
         "description": "iris: Fix and refactor check for clear color being fully zero",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "e83da2d8e3b1129d6857bb18cb212fdd08cbc69b"
     },
@@ -688,7 +688,7 @@
         "description": "panfrost: Only cull polygons",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -697,7 +697,7 @@
         "description": "panfrost: Use u_reduced_prim for primitive checks",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -706,7 +706,7 @@
         "description": "freedreno/a5xx: Fix clip_mask",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "99838513aee4aeb100ff82fa7e2424c2d8e4f845"
     },
@@ -715,7 +715,7 @@
         "description": "freedreno/a6xx: Fix clip_mask",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "f2ae8d116ab05419764be444f0615f0310ae9936"
     },
@@ -724,7 +724,7 @@
         "description": "freedreno: Add FD_DIRTY_RASTERIZER_CLIP_PLANE_ENABLE",
         "nominated": false,
         "nomination_type": null,
-        "resolution": 4,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -733,7 +733,7 @@
         "description": "freedreno: Pass shader cache key instead of shader key",
         "nominated": false,
         "nomination_type": null,
-        "resolution": 4,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -742,7 +742,7 @@
         "description": "mesa/st: Lowered ucp should still mark rast state dirty",
         "nominated": false,
         "nomination_type": null,
-        "resolution": 4,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -931,7 +931,7 @@
         "description": "util/fossilize_db: Fix double free in error handling.",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "eca6bb9540d8d1b260511cd0a71bdddb00ff4a3c"
     },
@@ -1300,7 +1300,7 @@
         "description": "Revert \"intel/isl: Don't reconfigure aux surfaces for MCS\"",
         "nominated": true,
         "nomination_type": 2,
-        "resolution": 0,
+        "resolution": 2,
         "main_sha": null,
         "because_sha": "2f0fbe06e65c5ae6c3e9ab3943a4a7d01ae9dc2f"
     },
@@ -1345,7 +1345,7 @@
         "description": "Revert \"nir/algebraic: distribute fmul(fadd(a, b), c) when b and c are constants\"",
         "nominated": true,
         "nomination_type": 2,
-        "resolution": 0,
+        "resolution": 2,
         "main_sha": null,
         "because_sha": "a1af902531122464b0f4eb66a7c4bf207a8a69f1"
     },
@@ -1354,7 +1354,7 @@
         "description": "Revert \"zink: handle vertex buffer offset overflows\"",
         "nominated": true,
         "nomination_type": 2,
-        "resolution": 0,
+        "resolution": 2,
         "main_sha": null,
         "because_sha": "9823b970fb51db21ac6ce29753eba82dc25f3072"
     },
@@ -1408,7 +1408,7 @@
         "description": "zink: Output PackHalf2x16 to uint not float",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -1624,7 +1624,7 @@
         "description": "mesa: use less temporaries in build_lighting",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "272acbed0e2cb68f48f23dc6b891853c1920f019"
     },
@@ -1642,7 +1642,7 @@
         "description": "driconf: enable vs_position_always_invariant for Dirt Rally",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -1651,7 +1651,7 @@
         "description": "r300: properly initialize new_vs in r300_draw_init_vertex_shader",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -1939,7 +1939,7 @@
         "description": "intel/fs: Fix gl_FrontFacing optimization on Gfx12+",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "c92fb60007f9c73a4c174f5f4cbce57fbc5118f4"
     },
@@ -2110,7 +2110,7 @@
         "description": "zink: stop allocating such massive staging regions for buffer maps",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -2236,7 +2236,7 @@
         "description": "mesa: refactor GetProgramiv to use program resource list",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -2263,7 +2263,7 @@
         "description": "softpipe: respect !independent_blend_enable for color masks.",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -2740,7 +2740,7 @@
         "description": "llvmpipe: Add get_{driver,device}_uuid implementations",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "9da15aa3aa94bc94ca1492df8c444ff76b92d19d"
     },
@@ -2902,7 +2902,7 @@
         "description": "anv: fix missing descriptor copy of bufferview/surfacestate content",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -3478,7 +3478,7 @@
         "description": "zink: check EXT_image_drm_format_modifier for dmabuf support",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -3721,7 +3721,7 @@
         "description": "nir: fix nir_tex_instr hash not count is_sparse field",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "3a7972f72a530ebb1b8c1b1eb660f2506d841ae4"
     },
@@ -3748,7 +3748,7 @@
         "description": "nir/unsigned_upper_bound: don't follow 64-bit f2u32()",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "72ac3f60261a8510512861b93e843e695331e2ab"
     },
@@ -3910,7 +3910,7 @@
         "description": "pan/bi: Schedule around blend shader register clobbering",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -4081,7 +4081,7 @@
         "description": "driconf: Fix unhandled tags in static conf",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "5740ac370142aa626d7a03b16d63fa3fb160f100"
     },
@@ -4252,7 +4252,7 @@
         "description": "intel/fs: disable VRS when omask is written",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "b6332fc4a8ae58b3551b5fc04fa30286dd783304"
     },
@@ -4549,7 +4549,7 @@
         "description": "vulkan: return default string for undefined enum",
         "nominated": false,
         "nomination_type": null,
-        "resolution": 4,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -4630,7 +4630,7 @@
         "description": "zink: remove SpvMemorySemanticsMakeVisibleMask from nir_intrinsic_memory_barrier",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -4657,7 +4657,7 @@
         "description": "panfrost: Don't double-free when handling error for unsupported GPU",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -4684,7 +4684,7 @@
         "description": "util/vbuf: fix buffer translation sizing",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "3c5b7dca30edc7365839944447476e0b8b56bf1f"
     },
@@ -4810,7 +4810,7 @@
         "description": "aux/trace: copy over stream_output_target_offset method from context",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -4954,7 +4954,7 @@
         "description": "venus: VkExternalImageFormatProperties is optional",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "108f386a612054e1617515af6e7ae7f87a9da5ba"
     },
@@ -5188,7 +5188,7 @@
         "description": "zink: use even more accurate stride values for query result copies",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "039ed2de94d027cce6f7ac6e6af8090937eeb929"
     },
@@ -5197,7 +5197,7 @@
         "description": "Revert \"zink: when performing an implicit reset, sync qbos\"",
         "nominated": true,
         "nomination_type": 2,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "79790e276f61f23217badd80c51add755dfe18ac"
     },
@@ -5206,7 +5206,7 @@
         "description": "zink: skip readback of qbos with no results",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "93190be1b990d61df329ca0cbce9bd0fb31c7607"
     },
@@ -5215,7 +5215,7 @@
         "description": "zink: fix availability buffer sizing/copying for xfb queries",
         "nominated": true,
         "nomination_type": 0,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": null
     },
@@ -5224,7 +5224,7 @@
         "description": "zink: always set number of timestamp results to 1 for internal qbo",
         "nominated": true,
         "nomination_type": 1,
-        "resolution": 0,
+        "resolution": 1,
         "main_sha": null,
         "because_sha": "93190be1b990d61df329ca0cbce9bd0fb31c7607"
     },
